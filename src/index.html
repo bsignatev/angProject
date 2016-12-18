@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head> 
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <base href="/angProject/'>
+ 
 
   <title><%= htmlWebpackPlugin.options.title %></title>
 
@@ -14,9 +14,11 @@
   <!-- Configured Head Tags  -->
   <%= webpackConfig.htmlElements.headTags %>
   <% } %>
-
+ 
+   <base href="/angProject/">
+ 
   <!-- base url -->
-  <base href="<%= htmlWebpackPlugin.options.metadata.baseUrl %>">
+  <!--<base href="<%= htmlWebpackPlugin.options.metadata.baseUrl %>"> -->
 
 
 </head>
