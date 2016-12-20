@@ -1,13 +1,15 @@
 <div class="container">
     <h1>Login Form</h1>
-    <form >
+    <form [formGroup]="loginForm" >
       <div class="form-group">
         <label for="login">Login</label>
-        <input type="text" class="form-control" required>
+        <input  type="text" class="form-control" [formControl]="loginForm.controls.login">
+       <div class="alert alert-danger" *ngIf="showError(loginForm.controls.login, 'required')">* введите</div>
       </div>
       <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" class="form-control" required>
+        <input type="password" class="form-control"  [formControl]="loginForm.controls.password">
+         <div class="alert alert-danger" *ngIf="showError(loginForm.controls.password, 'required')">* введите</div>
       </div>
       <button type="submit" class="btn btn-default">Submit</button>
     </form>
