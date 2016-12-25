@@ -10,7 +10,8 @@ import { AppComponent } from './app.component';
 import { InternalStateType } from './app.service';
 import { LoginComponent } from './login';
 import { CoursesComponent } from './courses';
-import { LoginService } from './services';
+import { LoginService, ApiService } from './services';
+
 
 
 
@@ -33,7 +34,11 @@ type StoreType = {
     ReactiveFormsModule,
     HttpModule,
     RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules })
-  ]
+  ],
+  providers: [
+    ApiService,
+    LoginService
+    ]
 
 })
 export class AppModule {

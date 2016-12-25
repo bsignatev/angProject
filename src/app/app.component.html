@@ -1,0 +1,14 @@
+  <header>
+      <div class='container'>
+        <h1>Application</h1>
+      </div>
+       <button  class="btn btn-default col-sm-offset-2" *ngIf="showBtnLogOut"  (click)="logOut()">LogOut</button>
+    </header>
+
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+
+    <footer>
+
+    </footer>

@@ -1,5 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { AppState } from './app.service';
+import {LoginService} from './services'; 
 
 @Component({
   selector: 'app',
@@ -7,31 +8,27 @@ import { AppState } from './app.service';
   styleUrls: [
     './app.component.css'
   ],
-  template: `
-    <header>
-      <div class='container'>
-        <h1>Application</h1>
-      </div>
-    </header>
-
-    <main>
-      <router-outlet></router-outlet>
-    </main>
-
-    <footer>
-
-    </footer>
-  `
+ templateUrl: './app.component.html'
+ 
 })
 export class AppComponent {
+  showBtnLogOut: boolean
   
-
-  constructor() {
+  constructor(
+   private loginService: LoginService
+  ) 
+  {
 
   }
+
 
   ngOnInit() {
-
+    this.showBtnLogOut = this.loginService.isAuthorized();
   }
+
+  logOut() {
+ 
+   this.loginService.logOff();
+  } 
 }
 
