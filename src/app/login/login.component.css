@@ -1,1 +1,9 @@
-/*styles for home content only*/
+
+.login-panel {
+    margin-top: 20px;
+    }
+
+.ng-touched.ng-invalid {
+
+  border-color:red
+}

@@ -1,24 +1,24 @@
-<div class="container">
+<div class="login-panel well container">
   <div class="col-sm-offset-2">
-    <h1 >Login Form</h1>
+    <h1>Login Form</h1>
+  </div>
+  <form class="form-horizontal" [formGroup]="loginForm" (ngSubmit)="login()">
+    <div class="form-group">
+      <label for="login" class="col-sm-2 control-label">Login</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" [formControl]="loginForm.controls.login">
+      </div>
+      <div class="text-danger col-sm-4" *ngIf="showError(loginForm.controls.login, 'required')">* введите</div>
+      <div class="text-danger col-sm-4" *ngIf="showError(loginForm.controls.login, 'pattern')">* логин может содержать только латинские буквы</div>
     </div>
-    <form class="form-horizontal" [formGroup]="loginForm" (ngSubmit)="login()">
-      <div class="form-group">
-        <label for="login" class="col-sm-2 control-label">Login</label>
-        <div class="col-sm-6">
-        <input  type="text" class="form-control" [formControl]="loginForm.controls.login">
-        </div>
-       <div class="text-danger col-sm-4" *ngIf="showError(loginForm.controls.login, 'required')">* введите</div>
-       <div class="text-danger col-sm-4" *ngIf="showError(loginForm.controls.login, 'pattern')">* логин может содержать только латинские буквы</div>
+    <div class="form-group">
+      <label for="password" class="col-sm-2 control-label">Password</label>
+      <div class="col-sm-6">
+        <input type="password" class="form-control" [formControl]="loginForm.controls.password">
       </div>
-      <div class="form-group">
-        <label for="password" class="col-sm-2 control-label">Password</label>
-         <div class="col-sm-6">
-        <input type="password" class="form-control"  [formControl]="loginForm.controls.password">
-        </div>
-         <div class="text-danger col-sm-4" *ngIf="showError(loginForm.controls.password, 'required')">* введите</div>
-         <div class="text-danger col-sm-4" *ngIf="showError(loginForm.controls.password, 'pattern')">* логин может содержать только латинские буквы и цифры</div>
-      </div>
-      <button type="submit" class="btn btn-default col-sm-offset-2" [disabled]="loginForm.invalid">Submit</button>
-    </form>
+      <div class="text-danger col-sm-4" *ngIf="showError(loginForm.controls.password, 'required')">* введите</div>
+      <div class="text-danger col-sm-4" *ngIf="showError(loginForm.controls.password, 'pattern')">* логин может содержать только латинские буквы и цифры</div>
+    </div>
+    <button type="submit" class="btn btn-default col-sm-offset-2" [disabled]="loginForm.invalid">Submit</button>
+  </form>
 </div>

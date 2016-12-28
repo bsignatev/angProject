@@ -1,6 +1,6 @@
 import { NgModule, ApplicationRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, PreloadAllModules } from '@angular/router';
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
@@ -10,7 +10,8 @@ import { AppComponent } from './app.component';
 import { InternalStateType } from './app.service';
 import { LoginComponent } from './login';
 import { CoursesComponent } from './courses';
-import { LoginService, ApiService } from './services';
+import { LoginService, ApiService, CoursesService } from './services';
+import { HeaderComponent } from './components/header';
 
 
 
@@ -22,11 +23,12 @@ type StoreType = {
 };
 
 @NgModule({
-  bootstrap: [ AppComponent ],
+  bootstrap: [AppComponent],
   declarations: [
     AppComponent,
     LoginComponent,
-    CoursesComponent
+    CoursesComponent,
+    HeaderComponent
   ],
   imports: [ // import Angular's modules
     BrowserModule,
@@ -37,12 +39,13 @@ type StoreType = {
   ],
   providers: [
     ApiService,
-    LoginService
-    ]
+    LoginService,
+    CoursesService
+  ]
 
 })
 export class AppModule {
-  constructor(public appRef: ApplicationRef) {}
+  constructor(public appRef: ApplicationRef) { }
 
 }
 
