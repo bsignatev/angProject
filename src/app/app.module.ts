@@ -8,8 +8,8 @@ import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularcla
 import { ROUTES } from './app.routes';
 import { AppComponent } from './app.component';
 import { InternalStateType } from './app.service';
-import { LoginComponent } from './login';
-import { CoursesComponent } from './courses';
+import { LoginComponent } from './pages/login';
+import { CoursesComponent } from './pages/courses';
 import { LoginService, ApiService, CoursesService } from './services';
 import { HeaderComponent } from './components/header';
 import {NotificationComponent} from './components/notification';

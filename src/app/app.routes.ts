@@ -1,6 +1,6 @@
 import { Routes, RouterModule } from '@angular/router';
-import { LoginComponent } from './login';
-import { CoursesComponent } from './courses';
+import { LoginComponent } from './pages/login';
+import { CoursesComponent } from './pages/courses';
 import { DataResolver } from './app.resolver';
 
 

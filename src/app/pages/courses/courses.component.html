@@ -4,14 +4,14 @@
 <div class="container">
       <div class="well form-inline">
             <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Введите...">
+                  <input type="text" class="form-control"  [(ngModel)]="param" placeholder="Введите...">
             </div>
-            <button type="submit" class="btn btn-defaultt">Найти</button>
+            <button type="submit" class="btn btn-defaultt" (click)= "search(param)">Найти</button>
             <button type="submit" class="btn btn-default pull-right">Добавить новый</button>
       </div>
 
       <div>
-            <div class="panel panel-default" *ngFor="let course of courses">
+            <div class="panel panel-default" *ngFor="let course of filtredCourses">
                   <div class="panel-heading">
                         <span>{{course.title}}</span>
                         <span> - </span>
@@ -30,5 +30,6 @@
                         </div>
                   </div>
             </div>
+           <div *ngIf= "isEmptyList()"> list empty...</div>
       </div>
 </div>
