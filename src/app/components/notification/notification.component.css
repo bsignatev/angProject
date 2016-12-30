@@ -1,0 +1,13 @@
+
+.notification {
+    padding: 10px;
+    width: 350px;
+    position: absolute;
+    z-index: 100;
+    right: 0px;
+    display: none; 
+  }
+   
+  .show-notification {
+   display: inline;
+  }

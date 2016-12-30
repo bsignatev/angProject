@@ -3,6 +3,7 @@ import {Headers, Http, Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/Rx';
 import 'rxjs/add/observable/throw';
+import {NotificationComponent} from '../components/notification'
 
 @Injectable()
 export class ApiService {
@@ -12,19 +13,21 @@ export class ApiService {
   });
   api_url: string = 'https://my-bootcamp.herokuapp.com';
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private notification: NotificationComponent) {
   }
 
   private checkForError(response: Response): Response | Observable<any> {
     if (response.status === 401) {
-      console.error('Unauthorized access attempt');
+      //console.error('Unauthorized access attempt');
+      this.notification.showNotification('Unauthorized access attempt'); 
     }
     if (response.status >= 200 && response.status < 300) {
       return response;
     } else {
       let error = new Error(response.statusText);
       const body = response.json();
-      console.error(body.message);
+      //console.error(body.message);
+      this.notification.showNotification(body.message);
       error['response'] = response;
       return Observable.throw(error);
     }

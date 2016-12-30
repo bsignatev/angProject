@@ -15,7 +15,7 @@
                   <div class="panel-heading">
                         <span>{{course.title}}</span>
                         <span> - </span>
-                        <span>{{course.duration}}</span>
+                        <span>{{course.duration | numToTime }}</span>
                         <span class="pull-right">{{course.date | date: 'dd.MM.yy'}}</span>
                   </div>
                   <div class="panel-body">

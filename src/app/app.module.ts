@@ -12,6 +12,9 @@ import { LoginComponent } from './login';
 import { CoursesComponent } from './courses';
 import { LoginService, ApiService, CoursesService } from './services';
 import { HeaderComponent } from './components/header';
+import {NotificationComponent} from './components/notification';
+
+import {NumToTime} from './pipes/numToTime';
 
 
 
@@ -28,7 +31,9 @@ type StoreType = {
     AppComponent,
     LoginComponent,
     CoursesComponent,
-    HeaderComponent
+    HeaderComponent,
+    NumToTime,
+    NotificationComponent
   ],
   imports: [ // import Angular's modules
     BrowserModule,
@@ -40,7 +45,8 @@ type StoreType = {
   providers: [
     ApiService,
     LoginService,
-    CoursesService
+    CoursesService,
+    NotificationComponent
   ]
 
 })
