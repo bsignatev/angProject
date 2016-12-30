@@ -32,18 +32,21 @@ export class CoursesComponent {
     });
   }
 
+  deleteCourse(course: Course) {
+  
+ }
+
   search(param: string) {
     if (param)
-      this.filtredCourses = this.courses.filter(course => course.title.includes(param));
+      this.filtredCourses = this.courses.filter(course => course.title.toLowerCase().includes(param.toLowerCase()));
     else this.filtredCourses = this.courses;
   }
 
   isEmptyList() {
-
-    if (this.filtredCourses){
-    return !(this.filtredCourses.length > 0);
+    if (this.filtredCourses) {
+      return !(this.filtredCourses.length > 0);
     }
     else return true;
-  } 
+  }
 
 }

@@ -18,4 +18,7 @@ export class CoursesService {
       .map(res => res.items as Course[]);
   }
 
+  deleteCourse(id) {
+    return this.api.delete(`/course?id=${id}`).do(() => { });
+  }
 }
