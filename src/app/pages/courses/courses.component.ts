@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { AppState } from '../app.service';
 import { CoursesService } from '../../services'
 import { Course } from '../../entities'
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -13,11 +14,13 @@ import { Course } from '../../entities'
 })
 export class CoursesComponent {
   courses: Course[];
+  course: Course;
   param: string = '';
   filtredCourses: Course[];
 
   constructor(
-    private coursesService: CoursesService
+    private coursesService: CoursesService,
+    private router: Router
   )
   { }
 
@@ -32,9 +35,23 @@ export class CoursesComponent {
     });
   }
 
+  editCourse(course: Course) {
+    this.router.navigate(['/courses', course.id]);
+  }
+
+  addCourse() {
+    this.router.navigate(['/courses', 'new']);
+  }
+
   deleteCourse(course: Course) {
-  
- }
+    let confirmDialog = confirm("Are you sure you want to delete course - " + course.title + "?");
+    if (confirmDialog == true) {
+      this.coursesService.deleteCourse(course.id).subscribe(
+        course => {
+          this.getCourses();
+        });
+    }
+  }
 
   search(param: string) {
     if (param)

@@ -1,0 +1,16 @@
+.authors-list-container{
+ max-height: 200px;
+ overflow-y: auto;
+}
+
+.btn-move-author{
+  margin:3px;
+}
+
+.pointer {
+    cursor:pointer
+}
+
+.ng-touched.ng-invalid {
+  border-color:red
+}

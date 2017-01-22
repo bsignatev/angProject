@@ -4,10 +4,10 @@
 <div class="container">
       <div class="well form-inline">
             <div class="form-group">
-                  <input type="text" class="form-control"  [(ngModel)]="param" placeholder="Введите...">
+                  <input type="text" class="form-control" [(ngModel)]="param" placeholder="Введите...">
             </div>
-            <button type="submit" class="btn btn-defaultt" (click)= "search(param)">Найти</button>
-            <button type="submit" class="btn btn-default pull-right">Добавить новый</button>
+            <button type="submit" class="btn btn-defaultt" (click)="search(param)">Найти</button>
+            <button type="submit" class="btn btn-default pull-right" (click)="addCourse()">Добавить новый</button>
       </div>
 
       <div>
@@ -22,14 +22,14 @@
                         <div>{{course.description}}</div>
                         <div class="form-inline">
                               <div class="">
-                                    <button class="btn btn-default pull-right">Edit</button>
+                                    <button class="btn btn-default pull-right" (click)="editCourse(course)">Edit</button>
                               </div>
                               <div class="">
-                                    <button class="btn btn-default pull-right" (click) = "deleteCourse(course)">Delete</button>
+                                    <button class="btn btn-default pull-right" (click)="deleteCourse(course)">Delete</button>
                               </div>
                         </div>
                   </div>
             </div>
-           <div *ngIf= "isEmptyList()"> list empty...</div>
+            <div *ngIf="isEmptyList()"> list empty...</div>
       </div>
 </div>

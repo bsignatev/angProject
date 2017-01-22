@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { InternalStateType } from './app.service';
 import { LoginComponent } from './pages/login';
 import { CoursesComponent } from './pages/courses';
+import { CourseEditComponent } from './pages/courseEdit';
 import { LoginService, ApiService, CoursesService } from './services';
 import { HeaderComponent } from './components/header';
 import {NotificationComponent} from './components/notification';
@@ -31,6 +32,7 @@ type StoreType = {
     AppComponent,
     LoginComponent,
     CoursesComponent,
+    CourseEditComponent,
     HeaderComponent,
     NumToTime,
     NotificationComponent

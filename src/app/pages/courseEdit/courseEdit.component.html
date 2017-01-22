@@ -1,0 +1,68 @@
+<page-header>
+</page-header>
+
+<div class="well container">
+  <div class="col-sm-offset-2">
+  </div>
+  <form class="form-horizontal" [formGroup]="editForm">
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Title</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" [formControl]="editForm.controls.title" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Description</label>
+      <div class="col-sm-6">
+        <textarea type="text" class="form-control" [formControl]="editForm.controls.description"></textarea>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Date</label>
+      <div class="col-sm-3">
+        <input type="text" class="form-control" [formControl]="editForm.controls.date" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Duration</label>
+      <div class="col-sm-1">
+        <input type="number" class="form-control" [formControl]="editForm.controls.duration" />
+      </div>
+      <div class="col-sm-2">
+        <span>{{editForm.controls.duration.value | numToTime }}</span>
+      </div>
+    </div>
+    <div class="well">
+      <div class="form-group row">
+        <label class="col-sm-2 control-label">Authors</label>
+        <div class="col-sm-3 authors-list-container">
+          <ul id="authors" class="list-group">
+            <a *ngFor="let author of authors" class="list-group-item pointer" (click)="selectAuthor(author)" [class.active]="author.isSelected">
+            {{author.name}}
+
+          </a>
+            <div *ngIf="authors.length ==0" class="col-sm-3"> Authors list empty...</div>
+          </ul>
+        </div>
+        <div class="col-sm-1">
+          <button type="submit" class="btn btn-default btn-move-author" (click)="moveAuthorFromList()"> > </button>
+          <button type="submit" class="btn btn-default btn-move-author" (click)="moveAuthorToList()"><</button>
+        </div>
+        <div class="col-sm-3 authors-list-container">
+          <ul id="authors" class="list-group">
+            <a *ngFor="let author of allAuthors" class="list-group-item pointer" (click)="selectAuthor(author)" [class.active]="author.isSelected">
+            {{author.name}}
+          </a>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group col-sm-3">
+      <button type="submit" class="btn btn-primary" (click)="saveCourse(editForm.value)">Save</button>
+      <button type="submit" class="btn btn-primary" (click)="cancel()">Cancel</button>
+    </div>
+  </form>
+</div>
