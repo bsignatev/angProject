@@ -16,7 +16,11 @@ import { HeaderComponent } from './components/header';
 import {NotificationComponent} from './components/notification';
 import {LoadingIndicator} from './components/loading';
 
+import {OnlyDateDirective} from './directives/';
+
 import {NumToTime} from './pipes/numToTime';
+
+import { LoggedInGuard } from './guards/loggedIn.guard';
 
 
 
@@ -37,7 +41,8 @@ type StoreType = {
     HeaderComponent,
     NumToTime,
     NotificationComponent,
-    LoadingIndicator
+    LoadingIndicator,
+    OnlyDateDirective
   ],
   imports: [ // import Angular's modules
     BrowserModule,
@@ -52,7 +57,8 @@ type StoreType = {
     CoursesService,
     NotificationComponent,
     NotificationService,
-    LoadingService
+    LoadingService,
+    LoggedInGuard
   ]
 
 })

@@ -5,6 +5,7 @@ import { Course, Author } from '../../entities';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { NotificationService } from '../../services';
 
 @Component({
     selector: 'courseEdit',
@@ -26,7 +27,9 @@ export class CourseEditComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private formBuilder: FormBuilder,
-        private authorsService: AuthorsService
+        private authorsService: AuthorsService,
+        private notification: NotificationService
+
     ) {
         this.buildForm();
     }
@@ -87,7 +90,7 @@ export class CourseEditComponent implements OnInit {
 
     saveCourse(value: any) {
         if (!this.editForm.valid) {
-            //alert("error");
+            this.notification.showNotification('Fill in the fields!')
             return;
         } else {
             this.course.title = value.title;
@@ -95,6 +98,7 @@ export class CourseEditComponent implements OnInit {
             const splited = value.date.split('.');
             this.course.date = new Date(+splited[2], +splited[1] - 1, +splited[0]);
             this.course.duration = value.duration;
+            this.course.authors = this.authors.map(i=>i.id);
 
             if (!this.course.id) {
                 this.coursesService.addCourse(this.course)

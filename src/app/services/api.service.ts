@@ -4,7 +4,9 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
 import 'rxjs/add/observable/throw';
 import { NotificationService } from './notification.service';
-import { LoadingService } from './loading.service'
+import { LoadingService } from './loading.service';
+import { LoginService } from './login.service'
+
 
 
 @Injectable()
@@ -15,7 +17,12 @@ export class ApiService {
   });
   api_url: string = 'https://my-bootcamp.herokuapp.com';
 
-  constructor(private http: Http, private loadingService: LoadingService, private notification: NotificationService) {
+  constructor(
+    private http: Http, 
+    private loadingService: LoadingService, 
+    private notification: NotificationService
+    //private loginService: LoginService
+    ) {
   }
 
   private checkForError(response: Response): Response | Observable<any> {
@@ -23,6 +30,7 @@ export class ApiService {
       //console.error('Unauthorized access attempt');
       this.notification.showNotification('Unauthorized access attempt');
       this.loadingService.toggleLoadingIndicator(false)
+      //this.loginService.logOff();
     }
     if (response.status >= 200 && response.status < 300) {
       return response;

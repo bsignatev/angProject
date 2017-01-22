@@ -30,7 +30,7 @@ export class LoginService {
   }
 
   isAuthorized(): boolean {
-    return !this.signedOut;
+    return window.localStorage.getItem(this.JWT_KEY)? true: false;
   }
 
   login(login: string, password: string): Observable<any> {
