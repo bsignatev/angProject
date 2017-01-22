@@ -11,9 +11,10 @@ import { InternalStateType } from './app.service';
 import { LoginComponent } from './pages/login';
 import { CoursesComponent } from './pages/courses';
 import { CourseEditComponent } from './pages/courseEdit';
-import { LoginService, ApiService, CoursesService } from './services';
+import { LoginService, ApiService, CoursesService, NotificationService, LoadingService } from './services';
 import { HeaderComponent } from './components/header';
 import {NotificationComponent} from './components/notification';
+import {LoadingIndicator} from './components/loading';
 
 import {NumToTime} from './pipes/numToTime';
 
@@ -35,7 +36,8 @@ type StoreType = {
     CourseEditComponent,
     HeaderComponent,
     NumToTime,
-    NotificationComponent
+    NotificationComponent,
+    LoadingIndicator
   ],
   imports: [ // import Angular's modules
     BrowserModule,
@@ -48,7 +50,9 @@ type StoreType = {
     ApiService,
     LoginService,
     CoursesService,
-    NotificationComponent
+    NotificationComponent,
+    NotificationService,
+    LoadingService
   ]
 
 })
