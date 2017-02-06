@@ -11,10 +11,11 @@ import { InternalStateType } from './app.service';
 import { LoginComponent } from './pages/login';
 import { CoursesComponent } from './pages/courses';
 import { CourseEditComponent } from './pages/courseEdit';
-import { LoginService, ApiService, CoursesService, NotificationService, LoadingService } from './services';
+import { LoginService, ApiService, CoursesService, NotificationService, LoadingService,BreadcrumbsService} from './services';
 import { HeaderComponent } from './components/header';
 import {NotificationComponent} from './components/notification';
 import {LoadingIndicator} from './components/loading';
+import {BreadcrumbsComponent} from './components/breadcrumbs';
 
 import {OnlyDateDirective} from './directives/';
 
@@ -42,7 +43,8 @@ type StoreType = {
     NumToTime,
     NotificationComponent,
     LoadingIndicator,
-    OnlyDateDirective
+    OnlyDateDirective,
+    BreadcrumbsComponent
   ],
   imports: [ // import Angular's modules
     BrowserModule,
@@ -58,7 +60,8 @@ type StoreType = {
     NotificationComponent,
     NotificationService,
     LoadingService,
-    LoggedInGuard
+    LoggedInGuard,
+    BreadcrumbsService
   ]
 
 })

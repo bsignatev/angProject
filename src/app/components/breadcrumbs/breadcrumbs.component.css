@@ -1,0 +1,6 @@
+.non-link{
+      cursor: default;
+      text-decoration: none;
+      color: #000000;
+      pointer-events: none
+}

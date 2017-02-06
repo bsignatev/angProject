@@ -7,9 +7,10 @@ import { LoggedInGuard } from './guards/loggedIn.guard';
 
 
 export const ROUTES: Routes = [
-  { path: '',   component: LoginComponent, canActivate: [LoggedInGuard] },
+  { path: '',   component: LoginComponent, canActivate: [LoggedInGuard], pathMatch: 'full'  },
   { path: 'login', component: LoginComponent  },
   { path: 'courses', component: CoursesComponent,canActivate: [LoggedInGuard]  },
   { path: 'courses/:id', component: CourseEditComponent,canActivate: [LoggedInGuard]  },
-  { path: 'courses/new', component: CourseEditComponent,canActivate: [LoggedInGuard]  }
+  { path: 'courses/new', component: CourseEditComponent,canActivate: [LoggedInGuard]  },
+  { path: '**', component: CoursesComponent, canActivate: [LoggedInGuard] }
 ];

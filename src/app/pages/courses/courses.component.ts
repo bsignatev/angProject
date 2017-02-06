@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AppState } from '../app.service';
-import { CoursesService } from '../../services'
+import { CoursesService, BreadcrumbsService } from '../../services'
 import { Course } from '../../entities'
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -20,12 +20,16 @@ export class CoursesComponent {
 
   constructor(
     private coursesService: CoursesService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute,
+     private breadcrumbsService:BreadcrumbsService
   )
   { }
 
   ngOnInit() {
     this.getCourses();
+    this.breadcrumbsService.setBreadCrumb(this.route.snapshot.url)
+    //this.breadcrumbsService.changeTitle(this.id, this.course.title);
   }
 
   getCourses() {

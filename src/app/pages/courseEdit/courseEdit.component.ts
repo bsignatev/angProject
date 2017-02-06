@@ -1,9 +1,9 @@
 import { DatePipe } from '@angular/common';
 import { Subscription } from 'rxjs/Subscription';
-import { CoursesService, AuthorsService } from '../../services';
+import { CoursesService, AuthorsService, BreadcrumbsService } from '../../services';
 import { Course, Author } from '../../entities';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router, UrlSegment } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NotificationService } from '../../services';
 
@@ -21,6 +21,7 @@ export class CourseEditComponent implements OnInit {
     course: Course = new Course();
     allAuthors: Author[] = new Array<Author>();
     authors: Author[] = new Array<Author>();
+    title: string;
 
     constructor(
         private coursesService: CoursesService,
@@ -28,7 +29,8 @@ export class CourseEditComponent implements OnInit {
         private router: Router,
         private formBuilder: FormBuilder,
         private authorsService: AuthorsService,
-        private notification: NotificationService
+        private notification: NotificationService,
+        private breadcrumbsService: BreadcrumbsService
 
     ) {
         this.buildForm();
@@ -37,6 +39,7 @@ export class CourseEditComponent implements OnInit {
     ngOnInit(): void {
 
         this.route.params.forEach((params: Params) => this.id = params['id']);
+        this.breadcrumbsService.setBreadCrumb(this.route.snapshot.url);
 
         if (this.id === "new") {
             this.course = new Course();
@@ -48,6 +51,9 @@ export class CourseEditComponent implements OnInit {
         } else {
             this.coursesService.getCourse(this.id).subscribe(course => {
                 this.course = course;
+
+                this.breadcrumbsService.changeTitle(this.id, this.course.title);
+                this.title = this.course.title;
                 this.authorsService.getAllAuthors().subscribe(allAuthors => {
                     if (this.course.authors.length > 0) {
                         this.authors = allAuthors.filter(author => this.course.authors.find(id => id == author.id));
@@ -69,6 +75,10 @@ export class CourseEditComponent implements OnInit {
             'description': [this.course.description, Validators.required],
             'date': [datePipe.transform(this.course.date, 'dd.MM.yyyy'), [Validators.required]],
             'duration': [this.course.duration, Validators.required]
+        });
+
+        this.editForm.controls['title'].valueChanges.subscribe((title: string) => {
+            this.changeTitle(title);
         });
     }
 
@@ -98,7 +108,7 @@ export class CourseEditComponent implements OnInit {
             const splited = value.date.split('.');
             this.course.date = new Date(+splited[2], +splited[1] - 1, +splited[0]);
             this.course.duration = value.duration;
-            this.course.authors = this.authors.map(i=>i.id);
+            this.course.authors = this.authors.map(i => i.id);
 
             if (!this.course.id) {
                 this.coursesService.addCourse(this.course)
@@ -113,6 +123,11 @@ export class CourseEditComponent implements OnInit {
                     });
             }
         }
+    }
+
+    changeTitle(newTitle) {
+        this.breadcrumbsService.changeTitle(this.title, newTitle);
+
     }
 
     cancel() {
