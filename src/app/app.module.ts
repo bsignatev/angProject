@@ -16,6 +16,7 @@ import { HeaderComponent } from './components/header';
 import {NotificationComponent} from './components/notification';
 import {LoadingIndicator} from './components/loading';
 import {BreadcrumbsComponent} from './components/breadcrumbs';
+import {CoursesListComponent} from './components';
 
 import {OnlyDateDirective} from './directives/';
 
@@ -44,7 +45,8 @@ type StoreType = {
     NotificationComponent,
     LoadingIndicator,
     OnlyDateDirective,
-    BreadcrumbsComponent
+    BreadcrumbsComponent,
+    CoursesListComponent
   ],
   imports: [ // import Angular's modules
     BrowserModule,

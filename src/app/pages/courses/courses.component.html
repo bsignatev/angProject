@@ -9,27 +9,5 @@
             <button type="submit" class="btn btn-defaultt" (click)="search(param)">Найти</button>
             <button type="submit" class="btn btn-default pull-right" (click)="addCourse()">Добавить новый</button>
       </div>
-
-      <div>
-            <div class="panel panel-default" *ngFor="let course of filtredCourses">
-                  <div class="panel-heading">
-                        <span>{{course.title}}</span>
-                        <span> - </span>
-                        <span>{{course.duration | numToTime }}</span>
-                        <span class="pull-right">{{course.date | date: 'dd.MM.yy'}}</span>
-                  </div>
-                  <div class="panel-body">
-                        <div>{{course.description}}</div>
-                        <div class="form-inline">
-                              <div class="">
-                                    <button class="btn btn-default pull-right" (click)="editCourse(course)">Edit</button>
-                              </div>
-                              <div class="">
-                                    <button class="btn btn-default pull-right" (click)="deleteCourse(course)">Delete</button>
-                              </div>
-                        </div>
-                  </div>
-            </div>
-            <div *ngIf="isEmptyList()"> list empty...</div>
-      </div>
+      <courses-list [courses]="filtredCourses" (onEditCourse)="editCourse($event)" (onDeleteCourse)="deleteCourse($event)"></courses-list>
 </div>

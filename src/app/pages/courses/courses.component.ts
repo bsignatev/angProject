@@ -22,7 +22,7 @@ export class CoursesComponent {
     private coursesService: CoursesService,
     private router: Router,
     private route: ActivatedRoute,
-     private breadcrumbsService:BreadcrumbsService
+    private breadcrumbsService: BreadcrumbsService
   )
   { }
 
@@ -62,12 +62,4 @@ export class CoursesComponent {
       this.filtredCourses = this.courses.filter(course => course.title.toLowerCase().includes(param.toLowerCase()));
     else this.filtredCourses = this.courses;
   }
-
-  isEmptyList() {
-    if (this.filtredCourses) {
-      return !(this.filtredCourses.length > 0);
-    }
-    else return true;
-  }
-
 }

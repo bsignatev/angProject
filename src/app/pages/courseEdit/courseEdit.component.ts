@@ -109,20 +109,24 @@ export class CourseEditComponent implements OnInit {
             this.course.date = new Date(+splited[2], +splited[1] - 1, +splited[0]);
             this.course.duration = value.duration;
             this.course.authors = this.authors.map(i => i.id);
-
-            if (!this.course.id) {
-                this.coursesService.addCourse(this.course)
-                    .subscribe(() => {
-                        this.router.navigate(['/courses']);
-                    });
-            }
-            else {
-                this.coursesService.updateCourse(this.course)
-                    .subscribe(() => {
-                        this.router.navigate(['/courses']);
-                    });
-            }
+            this.saveToServer(this.course);
         }
+    }
+
+    saveToServer(course: Course) {
+        if (!this.course.id) {
+            this.coursesService.addCourse(this.course)
+                .subscribe(() => {
+                    this.router.navigate(['/courses']);
+                });
+        }
+        else {
+            this.coursesService.updateCourse(this.course)
+                .subscribe(() => {
+                    this.router.navigate(['/courses']);
+                });
+        }
+
     }
 
     changeTitle(newTitle) {
