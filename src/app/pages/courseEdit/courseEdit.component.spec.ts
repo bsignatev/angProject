@@ -34,7 +34,7 @@ xdescribe('CourseEdit component', () => {
     });
 
     it('Should call CoursesService addCourse when new course save', () => {
-        var newCourse = new Course({ title: "test", description: 'testDescr', duration: 100, date: new Date() });
+        var newCourse = new Course({ title: "fromTest", description: 'from test Descr', duration: 100, date: new Date() });
         coursesEditComponent.saveToServer(newCourse);
         expect(fakeCoursesService.addCourse).toHaveBeenCalled();
         expect(fakeCoursesService.addCourse).toHaveBeenCalledWith(newCourse);

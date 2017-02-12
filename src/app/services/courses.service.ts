@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, Observer } from 'rxjs';
 import 'rxjs/add/operator/map';
-import { Router } from '@angular/router';
+
 import { ApiService } from './api.service';
 import { Course } from '../entities'
 
@@ -9,8 +9,8 @@ import { Course } from '../entities'
 export class CoursesService {
 
   constructor(
-    private api: ApiService,
-    private router: Router) {
+    private api: ApiService
+    ) {
   }
 
   getCourses(): Observable<Course[]> {
