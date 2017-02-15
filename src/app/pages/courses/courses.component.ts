@@ -6,7 +6,7 @@ import { Course } from '../../entities'
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { AppActions } from './../../app.actions';
-import { coursesReducer } from '../reducers/courses.reducers';
+import { coursesReducer } from '../reducers';
 import { Store } from '@ngrx/store';
 import { PageComponent } from '../page.component';
 
@@ -40,7 +40,7 @@ export class CoursesComponent extends PageComponent {
         this.courses = items;
         this.filtredCourses = items;
       }));
-    this.coursesService.getCourses()
+    //this.coursesService.getCourses()
   }
 
   // getCourses() {

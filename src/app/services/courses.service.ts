@@ -13,6 +13,7 @@ export class CoursesService {
     private api: ApiService,
     private appActions: AppActions
   ) {
+    this.getCourses();
   }
 
   getCourses() {
@@ -36,12 +37,17 @@ export class CoursesService {
   }
 
   getCourseFromStore(id: string) {
-    let state = this.appActions.getState();
-    let index = state.coursesReducer.findIndex(x => x.id == id);
-    if (index) {
-      return state.coursesReducer[index];
+    let course;
+    if (id === 'new') {
+      let course = new Course();
+    } else {
+      let state = this.appActions.getState();
+      let index = state.coursesReducer.findIndex(x => x.id == id);
+      if (index >= 0) {
+        course = state.coursesReducer[index] as Course;
+      }
     }
-    return null;
+    this.appActions.dispatch(AppActions.COURSE_LOADED, course);
   }
 
   deleteCourse(course: Course) {

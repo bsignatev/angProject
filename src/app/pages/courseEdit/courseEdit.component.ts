@@ -1,11 +1,15 @@
 import { DatePipe } from '@angular/common';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription, Observable } from 'rxjs';
 import { CoursesService, AuthorsService, BreadcrumbsService } from '../../services';
 import { Course, Author } from '../../entities';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params, Router, UrlSegment } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NotificationService } from '../../services';
+import { AppActions } from '../../app.actions';
+import { authorsReducer, courseReducer, coursesReducer } from '../reducers';
+import { PageComponent } from '../page.component';
+import { Store } from '@ngrx/store';
 
 @Component({
     selector: 'courseEdit',
@@ -14,7 +18,7 @@ import { NotificationService } from '../../services';
     providers: [AuthorsService]
 })
 
-export class CourseEditComponent implements OnInit {
+export class CourseEditComponent extends PageComponent {
 
     editForm: FormGroup;
     id: string;
@@ -30,42 +34,41 @@ export class CourseEditComponent implements OnInit {
         private formBuilder: FormBuilder,
         private authorsService: AuthorsService,
         private notification: NotificationService,
-        private breadcrumbsService: BreadcrumbsService
+        private breadcrumbsService: BreadcrumbsService,
+        private store: Store<any>,
+        private appActions: AppActions
 
     ) {
+        super(store, { courseReducer, authorsReducer, coursesReducer });
         this.buildForm();
     }
 
-    ngOnInit(): void {
+    onInit() {
 
         this.route.params.forEach((params: Params) => this.id = params['id']);
         this.breadcrumbsService.setBreadCrumb(this.route.snapshot.url);
+        this.coursesService.getCourseFromStore(this.id);
 
-        if (this.id === "new") {
-            this.course = new Course();
-            this.authorsService.getAllAuthors().subscribe(allAuthors => {
-
-                this.allAuthors = allAuthors;
-
-            });
-        } else {
-            this.coursesService.getCourse(this.id).subscribe(course => {
-                this.course = course;
-
-                this.breadcrumbsService.changeTitle(this.id, this.course.title);
-                this.title = this.course.title;
-                this.authorsService.getAllAuthors().subscribe(allAuthors => {
+        this._subscriptions([
+            Observable.combineLatest(
+                this.store.select(state => state.authorsReducer),
+                this.store.select(state => state.courseReducer))
+                .subscribe(([authors, course]) => {
+                    this.course = course as Course;
+                    this.allAuthors = authors.slice();
+                    this.breadcrumbsService.changeTitle(this.id, this.course.title);
+                    this.title = this.course.title;
                     if (this.course.authors.length > 0) {
-                        this.authors = allAuthors.filter(author => this.course.authors.find(id => id == author.id));
-                        this.allAuthors = allAuthors.filter(author => !this.course.authors.find(id => id == author.id));
+
+                        this.authors = this.allAuthors.filter(author => this.course.authors.find(id => id == author.id));
+                        this.allAuthors = this.allAuthors.filter(author => !this.course.authors.find(id => id == author.id));
 
                     } else {
-                        this.allAuthors = allAuthors;
+                        this.allAuthors = this.allAuthors;
                     }
                     this.buildForm();
-                });
-            });
-        }
+                })
+        ]);
     }
 
     buildForm(): void {
