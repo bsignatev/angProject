@@ -4,45 +4,64 @@ import 'rxjs/add/operator/map';
 
 import { ApiService } from './api.service';
 import { Course } from '../entities'
+import { AppActions } from '../app.actions';
 
 @Injectable()
 export class CoursesService {
 
   constructor(
-    private api: ApiService
-    ) {
+    private api: ApiService,
+    private appActions: AppActions
+  ) {
   }
 
-  getCourses(): Observable<Course[]> {
+  getCourses() {
     return this.api.get(`/course`)
-      .map(res => res.items as Course[]);
+      .map(res => res.items as Course[]).subscribe(res => {
+        this.appActions.dispatch(AppActions.COURSES_LOADED, res);
+      });
   }
 
   getCourse(id: string): Observable<Course> {
     return Observable.create((observer: Observer<Course>) => {
 
-      this.getCourses().subscribe(courses => {
-        let res = courses.find(course => course.id === id)
-        res = courses.find(course => course.id === id)
-        observer.next(res);
-        observer.complete();
-      });
+      //this.getCourses().subscribe(courses => {
+      //  let res = courses.find(course => course.id === id)
+      //  res = courses.find(course => course.id === id)
+      //  observer.next(res);
+      //  observer.complete();
+      // });
 
     });
   }
 
-  deleteCourse(id) {
-    return this.api.delete(`/course?id=${id}`).do(() => { });
+  getCourseFromStore(id: string) {
+    let state = this.appActions.getState();
+    let index = state.coursesReducer.findIndex(x => x.id == id);
+    if (index) {
+      return state.coursesReducer[index];
+    }
+    return null;
   }
 
-  addCourse(course: any) {
+  deleteCourse(course: Course) {
+    return this.api.delete(`/course?id=${course.id}`).subscribe(res => {
+      this.appActions.dispatch(AppActions.DELETE_COURSE, course);
+    });
+  }
+
+  addCourse(course: Course) {
     return this.api.post('/course', course)
-      .do(course => { });
+      .map(res => res as Course).subscribe(res => {
+        this.appActions.dispatch(AppActions.ADD_COURSE, res);
+      });
   }
 
-  updateCourse(course: any) {
+  updateCourse(course: Course) {
     return this.api.put('/course', course)
-      .do(course => { })
+      .map(res => res as Course).subscribe(res => {
+        this.appActions.dispatch(AppActions.UPDATE_COURSE, res);
+      });
   }
 }
 

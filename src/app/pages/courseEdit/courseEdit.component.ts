@@ -115,17 +115,12 @@ export class CourseEditComponent implements OnInit {
 
     saveToServer(course: Course) {
         if (!this.course.id) {
-            this.coursesService.addCourse(this.course)
-                .subscribe(() => {
-                    this.router.navigate(['/courses']);
-                });
+            this.coursesService.addCourse(this.course);
         }
         else {
-            this.coursesService.updateCourse(this.course)
-                .subscribe(() => {
-                    this.router.navigate(['/courses']);
-                });
+            this.coursesService.updateCourse(this.course);
         }
+        this.router.navigate(['/courses']);
 
     }
 

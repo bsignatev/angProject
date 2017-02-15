@@ -5,6 +5,11 @@ import { CoursesService, BreadcrumbsService } from '../../services'
 import { Course } from '../../entities'
 import { Router, ActivatedRoute } from '@angular/router';
 
+import { AppActions } from './../../app.actions';
+import { coursesReducer } from '../reducers/courses.reducers';
+import { Store } from '@ngrx/store';
+import { PageComponent } from '../page.component';
+
 
 @Component({
   selector: 'courses',
@@ -12,7 +17,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./courses.component.css'],
   templateUrl: './courses.component.html'
 })
-export class CoursesComponent {
+export class CoursesComponent extends PageComponent {
   courses: Course[];
   course: Course;
   param: string = '';
@@ -22,22 +27,28 @@ export class CoursesComponent {
     private coursesService: CoursesService,
     private router: Router,
     private route: ActivatedRoute,
-    private breadcrumbsService: BreadcrumbsService
+    private breadcrumbsService: BreadcrumbsService,
+    private store: Store<any>,
+    private appActions: AppActions
   )
-  { }
+  { super(store, { coursesReducer }); }
 
-  ngOnInit() {
-    this.getCourses();
+  onInit() {
     this.breadcrumbsService.setBreadCrumb(this.route.snapshot.url)
-    //this.breadcrumbsService.changeTitle(this.id, this.course.title);
+    this._subscription(
+      this.store.select(state => state.coursesReducer).subscribe((items: Course[]) => {
+        this.courses = items;
+        this.filtredCourses = items;
+      }));
+    this.coursesService.getCourses()
   }
 
-  getCourses() {
-    this.coursesService.getCourses().subscribe(courses => {
-      this.courses = courses;
-      this.filtredCourses = courses;
-    });
-  }
+  // getCourses() {
+  //   this.coursesService.getCourses().subscribe(courses => {
+  //     this.courses = courses;
+  ///     this.filtredCourses = courses;
+  //   });
+  //  }
 
   editCourse(course: Course) {
     this.router.navigate(['/courses', course.id]);
@@ -50,10 +61,7 @@ export class CoursesComponent {
   deleteCourse(course: Course) {
     let confirmDialog = confirm("Are you sure you want to delete course - " + course.title + "?");
     if (confirmDialog == true) {
-      this.coursesService.deleteCourse(course.id).subscribe(
-        course => {
-          this.getCourses();
-        });
+      this.coursesService.deleteCourse(course)
     }
   }
 

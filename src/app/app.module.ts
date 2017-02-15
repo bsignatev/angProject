@@ -24,6 +24,9 @@ import {NumToTime} from './pipes/numToTime';
 
 import { LoggedInGuard } from './guards/loggedIn.guard';
 
+import { AppActions } from './app.actions';
+import { coursesReducer } from './pages/reducers/courses.reducers';
+import { StoreModule } from '@ngrx/store';
 
 
 
@@ -53,7 +56,8 @@ type StoreType = {
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules }),
+    StoreModule.provideStore({coursesReducer}),
   ],
   providers: [
     ApiService,
@@ -63,7 +67,8 @@ type StoreType = {
     NotificationService,
     LoadingService,
     LoggedInGuard,
-    BreadcrumbsService
+    BreadcrumbsService,
+    AppActions
   ]
 
 })
