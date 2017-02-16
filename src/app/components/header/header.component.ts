@@ -21,7 +21,7 @@ export class HeaderComponent {
   ngOnInit() {
     let lobject = JSON.parse(window.localStorage.getItem("login"));
     if (lobject) {
-      this.login = JSON.parse(window.localStorage.getItem("login")).login;
+      this.login = lobject.login;
     }
   }
 
