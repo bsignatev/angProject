@@ -13,8 +13,17 @@ import { LoginService } from '../../services';
 })
 export class HeaderComponent {
 
+  login: string = "";
+
   constructor(private loginService: LoginService)
   { }
+
+  ngOnInit() {
+    let lobject = JSON.parse(window.localStorage.getItem("login"));
+    if (lobject) {
+      this.login = JSON.parse(window.localStorage.getItem("login")).login;
+    }
+  }
 
   logOut() {
     this.loginService.logOff();

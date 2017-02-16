@@ -14,8 +14,7 @@ import { Store } from '@ngrx/store';
 @Component({
     selector: 'courseEdit',
     templateUrl: './courseEdit.component.html',
-    styleUrls: ['./courseEdit.component.css'],
-    providers: [AuthorsService]
+    styleUrls: ['./courseEdit.component.css']
 })
 
 export class CourseEditComponent extends PageComponent {
@@ -48,7 +47,7 @@ export class CourseEditComponent extends PageComponent {
         this.route.params.forEach((params: Params) => this.id = params['id']);
         this.breadcrumbsService.setBreadCrumb(this.route.snapshot.url);
         this.coursesService.getCourseFromStore(this.id);
-
+     
         this._subscriptions([
             Observable.combineLatest(
                 this.store.select(state => state.authorsReducer),
@@ -129,7 +128,7 @@ export class CourseEditComponent extends PageComponent {
 
     changeTitle(newTitle) {
         this.breadcrumbsService.changeTitle(this.title, newTitle);
-
+        this.title = newTitle;
     }
 
     cancel() {

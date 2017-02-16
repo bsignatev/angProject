@@ -39,7 +39,7 @@ export class CoursesService {
   getCourseFromStore(id: string) {
     let course;
     if (id === 'new') {
-      let course = new Course();
+      course = new Course({ title: "", description: "", duration: 0, date: null, authors: []});
     } else {
       let state = this.appActions.getState();
       let index = state.coursesReducer.findIndex(x => x.id == id);

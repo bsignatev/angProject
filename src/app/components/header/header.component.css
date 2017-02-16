@@ -1,9 +1,27 @@
 .navbar-default {
     background-color: #607d8b;
     border-color: #607D8B;
+    border-radius: 4px;
+    margin-bottom: 15px 
 }
 
 .logo {
     width: 70px;
     padding: 5px;
+}
+
+.pull-right {
+    float: right;
+}
+
+.p-t-20 {
+    padding-top: 20px;
+}
+
+.p-t-30{
+    padding-top: 40px;
+}
+
+.p-r-20 {
+    padding-right: 20px;
 }

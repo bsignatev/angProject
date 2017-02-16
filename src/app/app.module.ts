@@ -11,7 +11,7 @@ import { InternalStateType } from './app.service';
 import { LoginComponent } from './pages/login';
 import { CoursesComponent } from './pages/courses';
 import { CourseEditComponent } from './pages/courseEdit';
-import { LoginService, ApiService, CoursesService, NotificationService, LoadingService,BreadcrumbsService} from './services';
+import { LoginService, ApiService, CoursesService, NotificationService, LoadingService,BreadcrumbsService, AuthorsService} from './services';
 import { HeaderComponent } from './components/header';
 import {NotificationComponent} from './components/notification';
 import {LoadingIndicator} from './components/loading';
@@ -27,8 +27,6 @@ import { LoggedInGuard } from './guards/loggedIn.guard';
 import { AppActions } from './app.actions';
 import { coursesReducer, authorsReducer, courseReducer } from './pages/reducers';
 import { StoreModule } from '@ngrx/store';
-
-
 
 type StoreType = {
   state: InternalStateType,
@@ -68,7 +66,8 @@ type StoreType = {
     LoadingService,
     LoggedInGuard,
     BreadcrumbsService,
-    AppActions
+    AppActions,
+    AuthorsService
   ]
 
 })

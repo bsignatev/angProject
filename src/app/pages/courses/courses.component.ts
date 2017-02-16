@@ -6,7 +6,7 @@ import { Course } from '../../entities'
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { AppActions } from './../../app.actions';
-import { coursesReducer } from '../reducers';
+import { coursesReducer, authorsReducer } from '../reducers';
 import { Store } from '@ngrx/store';
 import { PageComponent } from '../page.component';
 
@@ -31,7 +31,7 @@ export class CoursesComponent extends PageComponent {
     private store: Store<any>,
     private appActions: AppActions
   )
-  { super(store, { coursesReducer }); }
+  { super(store, { coursesReducer, authorsReducer }); }
 
   onInit() {
     this.breadcrumbsService.setBreadCrumb(this.route.snapshot.url)
@@ -40,15 +40,7 @@ export class CoursesComponent extends PageComponent {
         this.courses = items;
         this.filtredCourses = items;
       }));
-    //this.coursesService.getCourses()
   }
-
-  // getCourses() {
-  //   this.coursesService.getCourses().subscribe(courses => {
-  //     this.courses = courses;
-  ///     this.filtredCourses = courses;
-  //   });
-  //  }
 
   editCourse(course: Course) {
     this.router.navigate(['/courses', course.id]);
