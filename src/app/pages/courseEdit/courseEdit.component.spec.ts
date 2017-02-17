@@ -41,14 +41,15 @@ describe('CourseEdit component', () => {
                 fixture = TestBed.createComponent(CourseEditComponent);
                 coursesEditComponent = fixture.componentInstance;
                 fixture.detectChanges();
-                //spyOn(coursesEditComponent, 'saveToServer');
             });
+    });
 
-        //spyOn(coursesEditComponent, 'saveToServer');
-        //fixture = TestBed.createComponent(CourseEditComponent);
-        //coursesEditComponent = fixture.componentInstance;
-        //spyOn(coursesEditComponent, 'saveToServer');
-        //fixture.detectChanges();
+    it('should have a defined component', () => {
+        expect(coursesEditComponent).toBeDefined();
+    });
+
+    it('should have a no defined component', () => {
+        expect(coursesEditComponent).not.toBeDefined();
     });
 
     it('Should call CoursesService addCourse when new course save', () => {
