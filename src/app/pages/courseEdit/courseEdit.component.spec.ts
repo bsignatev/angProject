@@ -1,36 +1,54 @@
 
 import { Course } from '../../entities';
 import { CourseEditComponent } from './courseEdit.component';
-import { CoursesService, AuthorsService, NotificationService, BreadcrumbsService } from '../../services';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { CoursesService, AuthorsService, NotificationService, BreadcrumbsService, ApiService } from '../../services';
+import { ComponentFixture, TestBed, ComponentFixtureAutoDetect, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement, Component } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-xdescribe('CourseEdit component', () => {
-    let fakeCoursesService: CoursesService;
+describe('CourseEdit component', () => {
+    let fakeCoursesService;
     let coursesEditComponent: CourseEditComponent;
+    let fixture: ComponentFixture<CourseEditComponent>;
+
     let route: ActivatedRoute;
     let router: Router;
     let formBuilder: FormBuilder;
     let authorsService: AuthorsService;
     let notification: NotificationService;
     let breadcrumbsService: BreadcrumbsService;
+    let apiService: ApiService
 
+    beforeEach(() => {
+        fakeCoursesService = {
+            addCourse: jasmine.createSpy(''),
+            updateCourse: jasmine.createSpy('')
 
-    beforeEach(function () {
-        fakeCoursesService =
-            {
-                addCourse: function (course: Course): any { },
-                updateCourse: function (course: Course): any { },
+        };
+        //spyOn(fakeCoursesService, 'addCourse');
+        //spyOn(fakeCoursesService, 'updateCourse');
 
-            };
-        spyOn(fakeCoursesService, 'addCourse');
-        spyOn(fakeCoursesService, 'updateCourse');
-        coursesEditComponent = new CourseEditComponent(fakeCoursesService, route, router, formBuilder, authorsService, notification, breadcrumbsService
-        );
+        TestBed.configureTestingModule({
+            //imports: [Router],
+            declarations: [CourseEditComponent],
+            providers: [
+                { provide: CoursesService, useValue: fakeCoursesService }
+            ],
+        }).compileComponents()
+            .then(() => {
+                fixture = TestBed.createComponent(CourseEditComponent);
+                coursesEditComponent = fixture.componentInstance;
+                fixture.detectChanges();
+                //spyOn(coursesEditComponent, 'saveToServer');
+            });
 
+        //spyOn(coursesEditComponent, 'saveToServer');
+        //fixture = TestBed.createComponent(CourseEditComponent);
+        //coursesEditComponent = fixture.componentInstance;
+        //spyOn(coursesEditComponent, 'saveToServer');
+        //fixture.detectChanges();
     });
 
     it('Should call CoursesService addCourse when new course save', () => {
@@ -39,5 +57,4 @@ xdescribe('CourseEdit component', () => {
         expect(fakeCoursesService.addCourse).toHaveBeenCalled();
         expect(fakeCoursesService.addCourse).toHaveBeenCalledWith(newCourse);
     });
-
 }); 
