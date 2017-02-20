@@ -1,27 +1,53 @@
-import {Directive, ElementRef, HostListener, OnInit, OnDestroy} from '@angular/core';
+import { Directive, ElementRef, HostListener, OnInit, OnDestroy } from '@angular/core';
 
 @Directive({
     selector: '[only-date]'
 })
-export class OnlyDateDirective implements OnInit, OnDestroy {
-    constructor(private el:ElementRef) {
+export class OnlyDateDirective {
+    inputRegex: RegExp = /[0-9]|\./;
+    constructor(private el: ElementRef) {
+        this.el = el;
     }
 
     @HostListener('keypress', ['$event']) onKeyPress($event) {
-        var key = $event.keyCode || $event.which;
+        let key = $event.keyCode || $event.which;
         key = String.fromCharCode(key);
-        //this.el.nativeElement.value
-        var regex = /[0-9]|\./;
-        if (!regex.test(key)) {
+        let oldValue = this.el.nativeElement.value;
+        let inputPosition = this.el.nativeElement.selectionStart;
+        let value;
+        if (!this.inputRegex.test(key)) {
             $event.preventDefault();
+        } else {
+            value = this.getNewValue(oldValue, key, inputPosition)
+            if (!this.checkValue(value)) {
+                $event.preventDefault();
+            }
         }
     }
 
-    ngOnInit() {
-        //this.el.nativeElement.addEventListener('keypress', this.onKeyPress);
+    @HostListener('paste', ['$event']) onPaste($event) {
+        let inputPosition = this.el.nativeElement.selectionStart;
+        let oldValue = this.el.nativeElement.value;
+        let inputValue = $event.clipboardData.getData('Text');
+        if (!this.inputRegex.test(inputValue)) {
+            $event.preventDefault();
+        }
+        let newValue = this.getNewValue(oldValue, inputValue, inputPosition);
+        if (!this.checkValue(newValue)) {
+            return false;
+        }
     }
 
-    ngOnDestroy() {
-        //this.el.nativeElement.removeEventListener('keypress', this.onKeyPress);
+    getNewValue(oldValue, inputKey, inputPosition) {
+        return oldValue.substring(0, inputPosition) + inputKey + oldValue.substring(inputPosition);
+    }
+
+    checkValue(value) {
+        let arr = value.split(".");
+        if (arr.length > 3) return false;
+        if (parseInt(arr[0]) > 31) return false;
+        if (parseInt(arr[1]) > 12) return false;
+        if (parseInt(arr[2]) > 9999) return false;
+        return true;
     }
 }
