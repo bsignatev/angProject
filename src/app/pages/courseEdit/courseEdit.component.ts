@@ -14,7 +14,7 @@ import { Store } from '@ngrx/store';
 @Component({
     selector: 'courseEdit',
     template: require('./courseEdit.component.html'),
-    styleUrls: [require('./courseEdit.component.css')]
+    styles: [require('./courseEdit.component.css')],
 })
 
 export class CourseEditComponent extends PageComponent {
